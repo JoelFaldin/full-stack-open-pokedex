@@ -29,6 +29,13 @@ jobs:
         npx wait-on http://localhost:5000
         npx playwright test
 
+    - name: Render Deployment
+      uses: sws2apps/render-deployment@v1.8.0
+      with:
+          serviceId: ${{ secrets.RENDER_SERVICE_ID }}
+          apiKey: ${{ secrets.RENDER_API_KEY }}
+          multipleDeployment: false
+
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
