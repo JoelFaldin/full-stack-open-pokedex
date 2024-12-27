@@ -12,6 +12,6 @@ describe('Pokedex', () => {
     await page.getByText('ivysaur').click()
 
     await expect(page.getByText('overgrow')).toBeVisible()
-    await expect(page.getByText('asdasdasdasd')).toBeVisible()
+    await expect(page.getByText('chlorophyll')).toBeVisible()
   })
 })
