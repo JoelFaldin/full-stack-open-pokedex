@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  COMMIT_CONTAINS_SKIP: ${{ contains(toJson(github.event.commits.*.message), '#skip') }}
+  COMMIT_CONTAINS_SKIP: ${{ contains(github.event.head_commit.message, '#skip') }}
 
 jobs:
   a_test_job:
