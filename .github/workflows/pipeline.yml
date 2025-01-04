@@ -1,4 +1,4 @@
-name: Deployment pipeline
+name: Lintin, build and test
 
 on:
   push:
