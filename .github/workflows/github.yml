@@ -30,8 +30,8 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Check if commit message contains #skip
-        if: ${{ env.COMMIT_CONTAINS_SKIP == true }}
+        if: ${{ env.COMMIT_CONTAINS_SKIP == 'true' }}
         run: echo "Commit message contains #skip"
       - name: Check if commit message contains #skip
-        if: ${{ env.COMMIT_CONTAINS_SKIP == false }}
+        if: ${{ env.COMMIT_CONTAINS_SKIP == 'false' }}
         run: echo "Commit message does not contain #skip"
