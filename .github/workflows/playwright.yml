@@ -7,6 +7,9 @@ on:
     branches: [ main ]
     types: [ opened, synchronize ]
 
+env:
+  COMMITS_CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') }}
+
 jobs:
   deployment_pipeline:
     timeout-minutes: 60
@@ -34,7 +37,7 @@ jobs:
 
     - name: Render Deployment
       uses: sws2apps/render-deployment@v1.8.0
-      if: ${{ github.event_name == 'push' }}
+      if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && env.COMMITS_CONTAINS_SKIP != 'true' }}
       with:
           serviceId: ${{ secrets.RENDER_SERVICE_ID }}
           apiKey: ${{ secrets.RENDER_API_KEY }}
@@ -55,7 +58,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Bump version and push tag
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && env.COMMITS_CONTAINS_SKIP != 'true' }}
         uses: anothrNick/github-tag-action@1.71.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
