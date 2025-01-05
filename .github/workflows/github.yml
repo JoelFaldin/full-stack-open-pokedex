@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  COMMIT_CONTAINS_SKIP: ${{ contains(github.event.head_commit.message, '#skip') }}
+  COMMITS_CONTAINS_SKIP: ${{ contains(join(github.event.commits.*.message, ' '), '#skip') }}
 
 jobs:
   a_test_job:
@@ -31,14 +31,12 @@ jobs:
     steps:
       - name: Print contains
         run: |
-          echo ${{ env.COMMIT_CONTAINS_SKIP }}
-          echo ${{ env.COMMIT_CONTAINS_SKIP == 'true' }}
-          echo ${{ env.COMMIT_CONTAINS_SKIP == 'false' }}
-          echo ${{ env.COMMIT_CONTAINS_SKIP == true }}
-          echo ${{ env.COMMIT_CONTAINS_SKIP == false }}
+          echo ${{ env.COMMITS_CONTAINS_SKIP }}
+          echo ${{ env.COMMITS_CONTAINS_SKIP == 'true' }}
+          echo ${{ env.COMMITS_CONTAINS_SKIP == 'false' }}
       - name: Check if commit message contains skip
-        if: ${{ env.COMMIT_CONTAINS_SKIP == true }}
+        if: ${{ env.COMMITS_CONTAINS_SKIP == 'true' }}
         run: echo "Commit message contains skip"
       - name: Check if commit message contains skip
-        if: ${{ env.COMMIT_CONTAINS_SKIP == false }}
+        if: ${{ env.COMMITS_CONTAINS_SKIP == 'false' }}
         run: echo "Commit message does not contain skip"
