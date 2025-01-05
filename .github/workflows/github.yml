@@ -12,7 +12,7 @@ jobs:
   job2:
     runs-on: ubuntu-20.04
     steps:
-      - name: Print contains
+      - name: Print contents of COMMITS_CONTAINS_SKIP
         run: |
           echo ${{ env.COMMITS_CONTAINS_SKIP }}
           echo ${{ env.COMMITS_CONTAINS_SKIP == 'true' }}
@@ -20,6 +20,6 @@ jobs:
       - name: Check if commit message contains skip
         if: ${{ env.COMMITS_CONTAINS_SKIP == 'true' }}
         run: echo "Commit message contains skip"
-      - name: Check if commit message contains skip
+      - name: Check if commit message doesnt contains skip
         if: ${{ env.COMMITS_CONTAINS_SKIP == 'false' }}
         run: echo "Commit message does not contain skip"
