@@ -15,8 +15,6 @@ jobs:
       - name: Print contents of COMMITS_CONTAINS_SKIP
         run: |
           echo ${{ env.COMMITS_CONTAINS_SKIP }}
-          echo ${{ env.COMMITS_CONTAINS_SKIP == 'true' }}
-          echo ${{ env.COMMITS_CONTAINS_SKIP == 'false' }}
       - name: Check if commit message contains skip
         if: ${{ env.COMMITS_CONTAINS_SKIP == 'true' }}
         run: echo "Commit message contains skip"
